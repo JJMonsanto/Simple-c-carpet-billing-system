@@ -1,0 +1,7 @@
+*.exe
+*.o
+*.obj
+*.bin
+*.log
+.vscode/
+.idea/
