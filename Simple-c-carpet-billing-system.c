@@ -16,6 +16,15 @@ void calcAll(int length, int width, int discount, double costPerSquareFoot,
              int *area, double *carpetCost, double *laborCost, double *installedPrice,
              double *discountAmount, double *subtotal, double *tax, double *totalPrice);
 
+void printMeasurements(int length, int width, int area);
+
+void printCharges(double costPerSquareFoot, double carpetCost, double laborCost, double installedPrice,
+                  int discount, double discountAmount, double subtotal, double tax, double totalPrice);
+
+void printResults(int length, int width, int area,
+                  double costPerSquareFoot, double carpetCost, double laborCost, double installedPrice,
+                  int discount, double discountAmount, double subtotal, double tax, double totalPrice);
+
 int main(void) {
     int length, width, discount, area;
     double costPerSquareFoot, carpetCost, laborCost, installedPrice;
@@ -27,21 +36,9 @@ int main(void) {
             &area, &carpetCost, &laborCost, &installedPrice,
             &discountAmount, &subtotal, &tax, &totalPrice);
 
-    printf("\n                        MEASUREMENT\n");
-    printf("Length                                      %d ft\n", length);
-    printf("Width                                       %d ft\n", width);
-    printf("Area                                       %d square ft\n", area);
-
-    printf("\n                        CHARGES\n");
-    printf("DESCRIPTION             COST/SQ. FT.        CHARGE\n");
-    printf("--------------------------------------------------\n");
-    printf("Carpet                  %.2f              $%.2f\n", costPerSquareFoot, carpetCost);
-    printf("Labor                   %.2f               %.2f\n", LABOR_COST, laborCost);
-    printf("INSTALLED PRICE                           $%.2f\n", installedPrice);
-    printf("Discount                %d %%                %.2f\n", discount, discountAmount);
-    printf("SUBTOTAL                                  $%.2f\n", subtotal);
-    printf("Tax                                        %.2f\n", tax);
-    printf("TOTAL                                     $%.2f\n", totalPrice);
+    printResults(length, width, area,
+                 costPerSquareFoot, carpetCost, laborCost, installedPrice,
+                 discount, discountAmount, subtotal, tax, totalPrice);
 
     return 0;
 }
@@ -81,4 +78,33 @@ void calcAll(int length, int width, int discount, double costPerSquareFoot,
     calcInstalledPrice(length, width, costPerSquareFoot, area, carpetCost, laborCost, installedPrice);
     calcSubtotal(*installedPrice, discount, discountAmount, subtotal);
     calcTotal(*subtotal, tax, totalPrice);
+}
+
+void printMeasurements(int length, int width, int area) {
+    printf("\n                        MEASUREMENT\n");
+    printf("Length                                      %d ft\n", length);
+    printf("Width                                       %d ft\n", width);
+    printf("Area                                       %d square ft\n", area);
+}
+
+void printCharges(double costPerSquareFoot, double carpetCost, double laborCost, double installedPrice,
+                  int discount, double discountAmount, double subtotal, double tax, double totalPrice) {
+    printf("\n                        CHARGES\n");
+    printf("DESCRIPTION             COST/SQ. FT.        CHARGE\n");
+    printf("--------------------------------------------------\n");
+    printf("Carpet                  %.2f              $%.2f\n", costPerSquareFoot, carpetCost);
+    printf("Labor                   %.2f               %.2f\n", LABOR_COST, laborCost);
+    printf("INSTALLED PRICE                           $%.2f\n", installedPrice);
+    printf("Discount                %d %%                %.2f\n", discount, discountAmount);
+    printf("SUBTOTAL                                  $%.2f\n", subtotal);
+    printf("Tax                                        %.2f\n", tax);
+    printf("TOTAL                                     $%.2f\n", totalPrice);
+}
+
+void printResults(int length, int width, int area,
+                  double costPerSquareFoot, double carpetCost, double laborCost, double installedPrice,
+                  int discount, double discountAmount, double subtotal, double tax, double totalPrice) {
+    printMeasurements(length, width, area);
+    printCharges(costPerSquareFoot, carpetCost, laborCost, installedPrice,
+                 discount, discountAmount, subtotal, tax, totalPrice);
 }

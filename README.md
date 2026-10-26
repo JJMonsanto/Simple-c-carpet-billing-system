@@ -4,27 +4,27 @@ A modular, defensive C application that computes customer itemized bills and mea
 
 ---
 
-## ?? Architectural Pipeline
+## Architectural Pipeline
 
-The program follows a modular pipeline architecture where `main()` acts as the top-level coordinator, delegating data acquisition and calculation to specialized routines:
+The program follows a modular pipeline architecture where `main(void)` acts purely as a top-level coordinator delegating input, calculation, and output to specialized routines:
 
 ```text
-                           [ main(void) ]
-                                 |
-        +------------------------+------------------------+
-        |                                                 |
-        v                                                 v
-   [ getInput ]                                      [ calcAll ]
- (reads via addresses)                 (assembly-line calculation hub)
-                                                          |
-                      +-----------------------------------+-----------------------------------+
-                      |                                   |                                   |
-                      v                                   v                                   v
-            [ calcInstalledPrice ]                 [ calcSubtotal ]                      [ calcTotal ]
-            - Computes Area                        - Computes Discount                   - Computes 8.5% Tax
-            - Computes Carpet Cost                 - Computes Subtotal                   - Computes Final Total
-            - Computes Labor Cost
-            - Computes Installed Price
+                                         [ main(void) ]
+                                                |
+            +-----------------------------------+-----------------------------------+
+            |                                   |                                   |
+            v                                   v                                   v
+       [ getInput ]                         [ calcAll ]                      [ printResults ]
+     (reads via addresses)             (calculation hub)                    (output coordinator)
+                                                |                                   |
+                          +---------------------+-----------+               +-------+-------+
+                          |                     |           |               |               |
+                          v                     v           v               v               v
+                [ calcInstalledPrice ]   [ calcSubtotal ] [ calcTotal ] [ printMeasurements ] [ printCharges ]
+                - Computes Area          - Computes Disc. - Computes Tax - Prints room specs  - Prints itemized
+                - Computes Carpet Cost   - Computes Subt. - Computes Tot.                      statement
+                - Computes Labor Cost
+                - Computes Inst. Price
 ```
 
 ---
